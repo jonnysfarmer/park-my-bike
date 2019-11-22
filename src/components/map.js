@@ -96,7 +96,7 @@ class Map1 extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <div className="title">Find your nearest cycle park</div>
+          <div className="title">Pick Your Park</div>
           <div className="columns">
             <div className="column">
               <div id="center2">
