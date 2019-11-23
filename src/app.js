@@ -9,6 +9,8 @@ import './style.scss'
 import Map1 from './components/map'
 import Input from './components/Input'
 
+
+
 class App extends React.Component {
 
 
@@ -17,7 +19,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Input} />
+          <Route exact path="/park-my-bike" component={Input} />
           <Route path="/map/:latitude/:longitude" component={Map1} />
         </Switch>
       </BrowserRouter>
