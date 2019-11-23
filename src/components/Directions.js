@@ -3,6 +3,12 @@ import axios from 'axios'
 import PlainPin from './PlainPin'
 // import Loader from './Loader'
 
+// Page which gives the directions info.
+// given the starting postcode, it gets the postcode of the current bike park,
+// from the log / lat using another API, and pushes this into another TFL
+// directions API.
+
+
 
 export default class Directions extends PureComponent {
 
@@ -16,7 +22,7 @@ export default class Directions extends PureComponent {
       savedPostcodeStart: null
     }
   }
-
+  // Gets bike park poscode from Long /  Lat
   hook = () => {
     const long = this.props.showPopup.lon
     const lat = this.props.showPopup.lat
@@ -24,7 +30,7 @@ export default class Directions extends PureComponent {
       .then(resp => this.setState({ postcodeFinish: resp.data.result[0].postcode }))
       .catch(() => this.setState({ err: 'Invalid Postcode' }))
   }
-
+  // logs postcode from input (starting postcode)
   handleChange(e) {
     const postcode = (e.target.value).replace(/\s/g, '')
     this.setState({
@@ -33,6 +39,7 @@ export default class Directions extends PureComponent {
     })
 
   }
+  // hook which gives directions between the 2 postcodes
   hooktfl = () => {
     axios.get(`https://api.tfl.gov.uk/Journey/JourneyResults/${this.state.savedPostcodeStart}/to/${this.state.postcodeFinish}?cyclePreference=AllTheWay&bikeProficiency=Easy`)
       .then(resp => {
@@ -46,6 +53,9 @@ export default class Directions extends PureComponent {
         savedPostcodeStart: null
       }))
   }
+  // on submit of starting postcode, it also stores it in savedPostcode start.  This 
+  // means you dont have to keep re submitting your postcode.
+  // If its invalid, it removes it via the errors.
   handleSubmit(e) {
     e.preventDefault()
     this.setState({
@@ -60,6 +70,7 @@ export default class Directions extends PureComponent {
     this.hooktfl()
 
   }
+  // resest location, so you can reinput your starting location.
   resetLocation() {
     this.setState({
       postcodeStart: null,
@@ -68,6 +79,10 @@ export default class Directions extends PureComponent {
       savedPostcodeStart: null
     })
   }
+
+  // If no savedpostcode, it displays enter postcode information
+  // if its got a saved postcode, but no directions, it runs the tfl hook
+  // if it has all that information, shows the directions in a mapped Bulma Table.
   directions = () => {
     if (this.state.savedPostcodeStart === null) {
       return (

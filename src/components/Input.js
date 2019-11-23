@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import PlainPin from './PlainPin'
 
-
+// First Page.
 
 class Input extends React.Component {
 
@@ -18,6 +18,9 @@ class Input extends React.Component {
     }
   }
 
+  // on handle change (input into the input) if passes value to postcode without any spaces
+
+
   handleChange(e) {
     const postcode = (e.target.value).replace(/\s/g, '')
     this.setState({
@@ -26,6 +29,9 @@ class Input extends React.Component {
     })
     console.log(this.state.postcode)
   }
+
+  // on submit.  We get the logitude and latitude from the postcode from an api.
+  // This is then passed into the map via url
 
   handleSubmit(e) {
     e.preventDefault()

@@ -14,6 +14,8 @@ const geolocateStyle = {
   margin: 10
 }
 
+// This is the main page.
+
 class Map1 extends React.Component {
 
   constructor(props) {
@@ -33,6 +35,8 @@ class Map1 extends React.Component {
     }
   }
 
+  // This hook fetches the bike park data from a specific Long and Lat within a 250m radius
+
   hook = () => {
     const lat = this.state.viewport.latitude
     const long = this.state.viewport.longitude
@@ -40,6 +44,8 @@ class Map1 extends React.Component {
       .then(resp => this.setState({ bikedata: resp.data }))
       .catch(err => this.setState({ err: err.response.status }))
   }
+
+  // On mount, it updates the map with the logitudate and latitues from the postcode.
 
   componentDidMount() {
     this.setState({
@@ -57,6 +63,9 @@ class Map1 extends React.Component {
     }, 300)
   }
 
+  // This gives the markets and pins.  Passing an onclick function to pass the data of the
+  // specific park location to showPopup on Click
+
   loadBikeParks = () => {
     return this.state.bikedata.places.map((ele, i) => {
       return (
@@ -70,6 +79,8 @@ class Map1 extends React.Component {
       )
     })
   }
+  // This is for the pop up.  When showPopup is a value, it adds it at the specific location,
+  // the information given is in the ParkInfo folder
 
   loadBikePopup = () => {
     const { showPopup } = this.state
@@ -90,6 +101,12 @@ class Map1 extends React.Component {
     )
   }
 
+  // Assuming the bie data has been passed in, we return the map in 2
+  // bulma columns which are ontop of eachother in mobile.
+  // Used Flexbox to center the map and had to give it a specific value
+  // as mabox doesnt allow it to fill a div
+  // On click of the button, it refreshes locations at the specific location
+  // this was to avoid too many api calls.
 
   render() {
     if (this.state.bikedata === null) return <div>Loading...</div>

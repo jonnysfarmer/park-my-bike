@@ -1,5 +1,7 @@
 import React from 'react'
 
+// Future idea of doing a loading gif instead of loading...Currently not Active
+
 const Loader = () => {
 
   return (
