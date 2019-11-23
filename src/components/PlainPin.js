@@ -10,6 +10,8 @@ const pinStyle = {
   stroke: 'none'
 }
 
+// This is a plain pin of variable size, with no Onclick function
+
 export default class PlainPin extends PureComponent {
   render() {
     const { size } = this.props

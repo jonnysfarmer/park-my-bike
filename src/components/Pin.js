@@ -9,6 +9,7 @@ const pinStyle = {
   fill: 'rgb(102, 204, 141)',
   stroke: 'none'
 }
+// This is a pin with an onclick fucntion to map onto the map
 
 export default class Pin extends PureComponent {
   render() {

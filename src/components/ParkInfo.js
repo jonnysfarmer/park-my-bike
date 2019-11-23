@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 
+// This is the information displayed on the popups for each specific park
+
 export default class ParkInfo extends PureComponent {
   render() {
     const { info } = this.props
