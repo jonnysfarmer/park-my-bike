@@ -49,4 +49,9 @@ A lot of this project was converting postcodes to Longitude / Latitude co-ordina
  - These directions are then mapped into a table and displayed.
  - The user starting postcode for the directions is saved so the user can find directions by clicking on additional pop ups without re inputing your starting location unless you click the rest button.
 
+ ### Images
  
+![Front-page](images/1.png)
+![Map-View](images/2.png)
+![directions-1](images/3.png)
+![directions-2](images/4.png)
