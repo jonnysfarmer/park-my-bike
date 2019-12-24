@@ -49,9 +49,53 @@ A lot of this project was converting postcodes to Longitude / Latitude co-ordina
  - These directions are then mapped into a table and displayed.
  - The user starting postcode for the directions is saved so the user can find directions by clicking on additional pop ups without re inputing your starting location unless you click the rest button.
 
- ### Images
+### Code Examples
+
+We get the initial long / lat from the postcode API and pass this through the URL to the main page.
+
+```javascript
+  handleSubmit(e) {
+    e.preventDefault()
+    axios.get(`https://api.postcodes.io/postcodes/${this.state.postcode}`)
+      .then(resp => {
+        console.log(resp)
+        this.setState({
+          export: {
+            longitude: resp.data.result.longitude,
+            latitude: resp.data.result.latitude
+          }
+        })
+        this.props.history.push(`/map/${this.state.export.latitude}/${this.state.export.longitude}`)
+      })
+      .catch(() => this.setState({ errors: 'Invalid Postcode' }))
+
+  }
+```
+
+We set the initial state of our map location from the URL.  Tis is then passed to the hook which means we can re run the hook to find additional cycle parks as the maps viewport changes.
+
+```javascript
+  hook = () => {
+    const lat = this.state.viewport.latitude
+    const long = this.state.viewport.longitude
+    axios.get(`https://api.tfl.gov.uk/Place?radius=250&type=CyclePark&placeGeo.lat=${lat}&placeGeo.lon=${long}`)
+      .then(resp => this.setState({ bikedata: resp.data }))
+      .catch(err => this.setState({ err: err.response.status }))
+  }
+```
+
+### Screenshots
  
 ![Front-page](images/1.png)
 ![Map-View](images/2.png)
 ![directions-1](images/3.png)
 ![directions-2](images/4.png)
+
+## Wins and Blockers
+
+It was a good experience to work as a pair, with such a short deadline.  I think we pushed eachother and came up with good mobile friendly product in a relatively short period of time.
+
+We had a lot of async issues, as sometimes the public / free APIs were quite slow and we had to pull a decently amount of unwanted data.  We also ended up using classes opposed to hooks which I think would have been easier.
+
+The web-app only really works / looks good on mobile.  The desktop version is severely lacking but we thought 99% of the time, this would be a mobile product.  If we had more time, we would make it more user friendly on desktop.
+
